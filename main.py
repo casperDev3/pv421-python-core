@@ -1,48 +1,36 @@
-user_first_name = "John"  # snake_case
-userFirstName = "Jane"  # camelCase
-UserFirstName = "Josh"  # PascalCase
-# user-first-name = "Ann"  # kebab-case
-COUNTRY = "Ukraine"  # constants
-USER_FIRST_NAME = "Rayn"  # constants
+first_name_client = "jOhN said something!"
 
-# print(user_first_name)
+# methods / functions str
+# print(len(first_name_client))
+# CRUD - Create Read Update Delete
+print(first_name_client.title())
+print(first_name_client.capitalize())
+print(first_name_client.lower())
+print(first_name_client.upper())
+print(first_name_client.replace("j", "#"))
+print(first_name_client.find("O"))
 
-# --- PRIMITIVES ---
-str_one = "Lorem Ipsum"  # string (str)
-str_two = 'Lorem Ipsum'
-str_three = """ "Harry Potter" J. K. R. """
-str_four = ''' Joe's food! '''
+first_name = "jAke"
+print("Hello, " + first_name.capitalize() + "!")
+print(f"Hello, {first_name.capitalize()}!")
 
-num_one = 21  # integer (int)
-num_two = 3.14  # float
-num_three = 12j  # complex
+# Input: johN DoE sEm
+# Output: Doe J. S.
 
-bool_one = True  # boolean (bool)
-bool_two = False
+# fn = input("Enter fn: ").capitalize()
+# ln = input("Enter ln: ").capitalize()
+# fsn = input("Enter fsn: ").capitalize()
+# print(f"{ln} {fn[0]}. {fsn[0]}.")
 
-empty_one = None  # None
+txt = """Lorem ipsum — класичний варіант умовного беззмістовного тексту, що вставляється в макет сторінки. Lorem 
+ipsum — це перекручений уривок з філософського трактату Цицерона «Про межі добра і зла», написаного в 45 році до 
+нашої ери латиною"""
 
-# --- COMPLEX ---
-list_one = ["test", 44, True, 3.14]  # list (array)
-# print(list_one[2])
+clear_letter = (txt.replace(" ", "")
+                .replace("—", "")
+                .replace(",", '')
+                .replace("«", "")
+                .replace("»", '')
+                .replace(".", ''))
 
-dict_one = {
-    "first_name": "John",
-    "last_name": "Doe",
-    'has_children': True,
-    "age": 25,
-    "address": {
-        "country": "UA",
-        "city": "Dro",
-        "street": "Halytskoho",
-        "No": 12,
-        "zip_code": 82100
-    }
-}  # dict (obj)
-print(dict_one['first_name'], dict_one['address']['zip_code'])
-
-# --- ENTER DATA ---
-employee_first_name = input("Enter first name your employee: ")
-print("__Name: ", type(employee_first_name))
-employee_age = int(input("Enter age your employee: "))   # float(), str()
-print("__Age: ", type(employee_age))
+print(len(clear_letter))
