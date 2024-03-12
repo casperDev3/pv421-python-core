@@ -1,131 +1,94 @@
-# --- PRIMITIVE ---
-# first_name_client = "jOhN said something!"
-# methods / functions str
-# print(len(first_name_client))
-# CRUD - Create Read Update Delete
-# print(first_name_client.title())
-# print(first_name_client.capitalize())
-# print(first_name_client.lower())
-# print(first_name_client.upper())
-# print(first_name_client.replace("j", "#"))
-# print(first_name_client.find("O"))
-#
-# first_name = "jAke"
-# print("Hello, " + first_name.capitalize() + "!")
-# print(f"Hello, {first_name.capitalize()}!")
-
-# Input: johN DoE sEm
-# Output: Doe J. S.
-
-# fn = input("Enter fn: ").capitalize()
-# ln = input("Enter ln: ").capitalize()
-# fsn = input("Enter fsn: ").capitalize()
-# print(f"{ln} {fn[0]}. {fsn[0]}.")
-
-# txt = """Lorem ipsum — класичний варіант умовного беззмістовного тексту, що вставляється в макет сторінки. Lorem
-# ipsum — це перекручений уривок з філософського трактату Цицерона «Про межі добра і зла», написаного в 45 році до
-# нашої ери латиною"""
-
-# clear_letter = (txt.replace(" ", "")
-#                 .replace("—", "")
-#                 .replace(",", '')
-#                 .replace("«", "")
-#                 .replace("»", '')
-#                 .replace(".", ''))
-#
-# print(len(clear_letter))
+import random
 
 
-# num_one = 2
-# num_two = 3
-# sum_num = num_one + num_two
-# print(sum_num)
-# print(num_one - num_two)
-# print(round(num_one / num_two, 2))
-# print(num_one * num_two)
-# print(num_one**2)
-# print(5 % 2)
-#
-# some_result = 5 < 7
-# print(some_result)
-# print(5 > 7)
-# print(5 <= 5)
-# print(5 >= 7)
-# print(5 == 7)
-# print(5 != 7)
+# FUNCTIONS
+def gen_people(qty):
+    temp_user = {
+        "name": "John",
+        "address": {
+            "city": "Lviv",
+            "street": "Hrushevskoho"
+        }
+    }
 
-# --- COMPLEX ---
-# someList = [5, 2, 9, 2365, 4]
-# someList.append("hello!")
-# someList.remove("test")  # del by value
-# someList.pop()  # del by index or last
-# someList.clear()
-# someList.sort(reverse=True)
-# someList.reverse()
-
-
-# # Primitives vs Complex
-# num_one = 1
-# num_two = num_one
-# num_one = num_one + 1
-# # print(num_one, num_two)
-#
-# arr_one = [1, 2]
-# arr_two = arr_one.copy()
-# arr_one[0] = arr_one[0] + 1
-# print(arr_one, arr_two)
-
-# some_dict = {
-# }
-# some_dict["first_name"] = "Jake"
-# # del some_dict["id"]
-#
-# list_of_dict = [
-#     {
-#         "id": 1,
-#         "name": "Jane"
-#     }
-# ]
-#
-# some_dict["id"] = len(list_of_dict) + 1
-# list_of_dict.append(some_dict)
-#
-# print(list_of_dict)
+    data = []
+    people_gen_counter = 0
+    while people_gen_counter < qty:
+        # get age & children
+        temp_user['age'] = random.randint(0, 150)
+        temp_user['children'] = random.randint(0, 10)
+        # gen address
+        address = temp_user['address'].copy()
+        address['No'] = random.randint(1, 500)
+        temp_user['address'] = address
+        # add new element
+        data.append(temp_user.copy())
+        # print(f"User #{people_gen_counter} was added!")
+        people_gen_counter += 1  # people_gen_counter = people_gen_counter + 1
+        pass
+    return data
 
 
-# users_data = []
-#
-# # first_name =
-# users_data.append({
-#     "id": len(users_data) + 1,
-#     "first_name": input("Enter name:").capitalize()
-# })
-# print(users_data)
+# LOOPS
+if __name__ == "__main__":
 
-# age = int(input("Enter your age: "))
+    # 2 <= iterator < 10, step 2
+    # for iterator in range(2, 10, 2):
+    #     print(iterator)
+    # for item in fruits:
+    #     print(item)
+    #     if item[0] == "p":
+    #         print("Success! ---")
+    #         print(item)
+    #         break
+    #     else:
+    #         continue
+    #     pass
 
-# if 0 <= age < 12:
-#     print("You're child!")
-# elif 12 <= age < 18:
-#     print("You're teen!")
-# elif age >= 18:
-#     print("You're adult!")
-# else:
-#     print("oops! Something wrong!")
+    # a = 5
+    # while a <= 10:
+    #     a = a + 1
+    #     print(a)
+    #     # if a == 0:
+    #     #     break
+    #     # else:
+    #     #     continue
+    #     pass
 
+    # Count Adult - > has children -> No: 50 - 70
+    # adults = []
+    # for user in users_data:
+    #     if user['age'] >= 18:
+    #         adults.append(user)
+    #
+    # has_children = []
+    # for user in adults:
+    #     if user['children'] > 0:
+    #         has_children.append(user)
+    #
+    # finish_pool = []
+    # for user in has_children:
+    #     if 50 <= int(user['address']['No']) <= 70:
+    #         finish_pool.append(user)
 
-print("Products: \n"
-      "1. Phone\n"
-      "2. TV\n"
-      "3. Laptop\n\n")
+    # is_adult = True
+    # children = 5
+    # if is_adult and children >= 5:
+    #     print("You are beaty!")
+    # elif is_adult or children > 0:
+    #     print("Nice!")
+    # else:
+    #     print("Something! Else!")
+    users_data = gen_people(5000)
+    filtered_data = []
+    for user in users_data:
+        # prepare data
+        age = user['age']
+        children = user["children"]
+        number = int(user['address']["No"])
 
-ch = input("Enter number product: ")
+        # filtering data
+        if age >= 18 and children > 1 and 50 <= number <= 70:
+            filtered_data.append(user)
 
-if ch == '1':
-    print("Phone")
-elif ch == "2":
-    print("TV")
-elif ch == "3":
-    print("Laptop")
-else:
-    print("oops!")
+    print(f"Users {len(filtered_data)}")
