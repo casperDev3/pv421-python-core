@@ -13,7 +13,7 @@ from aiogram.types.inline_keyboard_markup import InlineKeyboardMarkup
 from aiogram.types.inline_keyboard_button import InlineKeyboardButton
 
 # Bot token can be obtained via https://t.me/BotFather
-TOKEN = "7192658163:AAECXbCnH5sPWOh95FBp4HNVDbbrjfAUdQM"
+TOKEN = "7192658163:AAHK0YxexsVH5DcOSHrRSSeO9pDYcegbqKM"
 
 # All handlers should be attached to the Router (or Dispatcher)
 dp = Dispatcher()
@@ -58,7 +58,13 @@ def i_test_menu():
 async def process_callback(callback_query: types.CallbackQuery):
     data = callback_query.data
     cid = callback_query.from_user.id
-    print(f"DATA: {data}, CID: {cid}")
+    if data == "plan_python_core":
+        await bot.send_message(cid, "Program Python: ")
+    elif data == "plan_html_css":
+        await bot.send_message(cid, "HTML Program: ")
+    elif data == "plan_next14":
+        await bot.send_message(cid, "NEXT.js 14 Program: ")
+
 
 
 @dp.message(CommandStart())
@@ -90,7 +96,6 @@ async def special_msg(message: types.Message) -> None:
         await message.answer("Ви в головному меню!", reply_markup=r_main_menu())
     elif content == "План занять":
         await message.answer("Оберіть модуль курсу:", reply_markup=i_test_menu())
-
 
 
 async def main() -> None:
