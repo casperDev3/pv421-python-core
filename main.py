@@ -44,12 +44,13 @@ def r_sub_contacts():
 
 
 # INLINE KEYBOARD
-def i_test_menu():
+def i_plan_menu():
     return InlineKeyboardMarkup(
         inline_keyboard=[
             [InlineKeyboardButton(text="Python Core", callback_data="plan_python_core")],
             [InlineKeyboardButton(text="HTML & CSS", callback_data="plan_html_css")],
-            [InlineKeyboardButton(text="NEXT.js 14", callback_data="plan_next14")]
+            [InlineKeyboardButton(text="NEXT.js 14", callback_data="plan_next14"),
+             InlineKeyboardButton(text="Контакти", callback_data="plan_contacts")]
         ]
     )
 
@@ -58,13 +59,35 @@ def i_test_menu():
 async def process_callback(callback_query: types.CallbackQuery):
     data = callback_query.data
     cid = callback_query.from_user.id
+    msg_id = callback_query.message.message_id
     if data == "plan_python_core":
-        await bot.send_message(cid, "Program Python: ")
+        # await bot.send_message(cid, "Program Python: ")
+        await bot.edit_message_text(
+            text="Program Python: https://drohobych.itstep.org/",
+            chat_id=cid,
+            message_id=msg_id,
+            reply_markup=i_plan_menu(),
+            disable_web_page_preview=True
+        )
     elif data == "plan_html_css":
-        await bot.send_message(cid, "HTML Program: ")
+        await bot.edit_message_text(
+            text="HTML Program: https://drohobych.itstep.org/",
+            chat_id=cid,
+            message_id=msg_id,
+            reply_markup=i_plan_menu(),
+            disable_web_page_preview=True
+        )
     elif data == "plan_next14":
-        await bot.send_message(cid, "NEXT.js 14 Program: ")
-
+        await bot.edit_message_text(
+            text="NEXT.js 14 Program: https://drohobych.itstep.org/",
+            chat_id=cid,
+            message_id=msg_id,
+            reply_markup=i_plan_menu(),
+            disable_web_page_preview=True
+        )
+    elif data == "plan_contacts":
+        await bot.delete_message(chat_id=cid, message_id=msg_id)
+        await bot.send_message(cid, "Ви відкрили підменю контакти", reply_markup=r_sub_contacts())
 
 
 @dp.message(CommandStart())
@@ -81,6 +104,9 @@ async def special_msg(message: types.Message) -> None:
     # commands
     if content == "/hide":
         await message.answer("You activated secret mode!", reply_markup=ReplyKeyboardRemove())
+    elif content == "/spam":
+        while True:
+            await message.answer("This spam")
 
     # btn
     if content == "Реквізити":
@@ -95,7 +121,7 @@ async def special_msg(message: types.Message) -> None:
     elif content == "Назад":
         await message.answer("Ви в головному меню!", reply_markup=r_main_menu())
     elif content == "План занять":
-        await message.answer("Оберіть модуль курсу:", reply_markup=i_test_menu())
+        await message.answer("Оберіть модуль курсу:", reply_markup=i_plan_menu())
 
 
 async def main() -> None:
