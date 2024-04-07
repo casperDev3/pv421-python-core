@@ -11,13 +11,19 @@ from aiogram.types.keyboard_button import KeyboardButton
 from aiogram.types.reply_keyboard_remove import ReplyKeyboardRemove
 from aiogram.types.inline_keyboard_markup import InlineKeyboardMarkup
 from aiogram.types.inline_keyboard_button import InlineKeyboardButton
+from aiogram.fsm.context import FSMContext
+from aiogram.fsm.state import State, StatesGroup
 
 # Bot token can be obtained via https://t.me/BotFather
-TOKEN = "7192658163:AAHK0YxexsVH5DcOSHrRSSeO9pDYcegbqKM"
+TOKEN = "7192658163:AAGVzkWMbNrY35qfw8jo0PZZ-ql28xvb5A0"
 
 # All handlers should be attached to the Router (or Dispatcher)
 dp = Dispatcher()
 bot = Bot(TOKEN)
+
+
+class RegistrationStates(StatesGroup):
+    wait_for_feedback = State()
 
 
 # REPLY KEYBOARD
@@ -26,7 +32,8 @@ def r_main_menu():
         keyboard=[
             [KeyboardButton(text="👨‍🎨Про проєкт")],
             [KeyboardButton(text="Реквізити"), KeyboardButton(text="План занять")],
-            [KeyboardButton(text='Контакти')]
+            [KeyboardButton(text='Контакти')],
+            [KeyboardButton(text='😉Надіслати відгук')]
         ],
         resize_keyboard=True
     )
@@ -96,8 +103,14 @@ async def command_start_handler(message: Message) -> None:
     await message.answer('Hello World! I am live!', reply_markup=r_main_menu())
 
 
+@dp.message(RegistrationStates.wait_for_feedback)
+async def get_user_feedback(msg: types.Message, state: FSMContext):
+    print("Requests", msg.text)
+    await state.clear()
+
+
 @dp.message()
-async def special_msg(message: types.Message) -> None:
+async def special_msg(message: types.Message, state: FSMContext) -> None:
     cid = message.chat.id
     content = message.text
 
@@ -122,6 +135,12 @@ async def special_msg(message: types.Message) -> None:
         await message.answer("Ви в головному меню!", reply_markup=r_main_menu())
     elif content == "План занять":
         await message.answer("Оберіть модуль курсу:", reply_markup=i_plan_menu())
+    elif content == "👨‍🎨Про проєкт":
+        await message.answer(text="Test: https://www.youtube.com/watch?v=KM2o3OyTtVU",
+                             disable_web_page_preview=True)
+    elif content == "😉Надіслати відгук":
+        await message.answer(text="Напишіть свій відгук!")
+        await state.set_state(RegistrationStates.wait_for_feedback)
 
 
 async def main() -> None:
