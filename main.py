@@ -5,7 +5,7 @@ import sys
 
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import CommandStart
-from aiogram.types import Message
+from aiogram.types import Message, FSInputFile
 from aiogram.utils.markdown import hbold
 from aiogram.types.reply_keyboard_markup import ReplyKeyboardMarkup
 from aiogram.types.keyboard_button import KeyboardButton
@@ -40,7 +40,9 @@ def r_main_menu():
             [KeyboardButton(text="👨‍🎨Про проєкт")],
             [KeyboardButton(text="Реквізити"), KeyboardButton(text="План занять")],
             [KeyboardButton(text='Контакти')],
-            [KeyboardButton(text='😉Надіслати відгук'), KeyboardButton(text='Надіслати заявку')]
+            [KeyboardButton(text='😉Надіслати відгук'),
+             KeyboardButton(text='Надіслати заявку'),
+             KeyboardButton(text='Надіслати картинку')]
         ],
         resize_keyboard=True
     )
@@ -179,6 +181,9 @@ async def special_msg(message: types.Message, state: FSMContext) -> None:
     elif content == "Надіслати заявку":
         await message.answer("Введіть своє ім*я: ")
         await state.set_state(RequestForm.wait_for_name)
+    elif content == "Надіслати картинку":
+        img = FSInputFile("assets/media/barbie.webp")
+        await bot.send_photo(cid, img)
 
 
 async def main() -> None:
