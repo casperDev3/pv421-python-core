@@ -4,7 +4,7 @@ import logging
 import sys
 
 from aiogram import Bot, Dispatcher, types
-from aiogram.filters import CommandStart
+from aiogram.filters import CommandStart, Command
 from aiogram.types import Message, FSInputFile
 from aiogram.utils.markdown import hbold
 from aiogram.types.reply_keyboard_markup import ReplyKeyboardMarkup
@@ -39,14 +39,23 @@ def r_main_menu():
     kb = ReplyKeyboardMarkup(
         keyboard=[
             [KeyboardButton(text="👨‍🎨Про проєкт")],
-            [KeyboardButton(text="Реквізити"), KeyboardButton(text="План занять")],
+            [
+                KeyboardButton(text="Реквізити"),
+                KeyboardButton(text="План занять")
+            ],
             [KeyboardButton(text='Контакти')],
-            [KeyboardButton(text='😉Надіслати відгук'),
-             KeyboardButton(text='Надіслати заявку'),
-             KeyboardButton(text='Надіслати картинку')],
+            [
+                KeyboardButton(text='😉Надіслати відгук'),
+                KeyboardButton(text='Надіслати заявку'),
+                KeyboardButton(text='Надіслати картинку')
+            ],
             [
                 KeyboardButton(text='Надіслати групу фото'),
-                KeyboardButton(text='Телефон')
+                KeyboardButton(text='Телефон', request_contact=True),
+                KeyboardButton(text="Локація", request_location=True)
+            ],
+            [
+                KeyboardButton(text='Екзотика')
             ]
         ],
         resize_keyboard=True
@@ -151,6 +160,29 @@ async def get_comment_req_form(msg: types.Message, state: FSMContext):
     await msg.answer("Дякуємо! Ваша заявка на розгляді", reply_markup=r_main_menu())
 
 
+@dp.message(Command("poll"))
+async def poll(msg: types.Message):
+    cid = msg.from_user.id
+    await bot.send_poll(
+        chat_id=cid,
+        question="Test Question",
+        options=["One", "Two"],
+        type="regular",
+        is_anonymous=False,
+        allows_multiple_answers=True
+    )
+
+
+@dp.poll_answer()
+async def poll_response(pa: types.PollAnswer):
+    print(pa)
+
+
+# @dp.message(filter)
+# async def get_phone_number(message):
+#     print(message)
+
+
 @dp.message()
 async def special_msg(message: types.Message, state: FSMContext) -> None:
     cid = message.chat.id
@@ -198,9 +230,16 @@ async def special_msg(message: types.Message, state: FSMContext) -> None:
         media_group.add(type="photo", media=FSInputFile("assets/media/barbie.webp"))
 
         await bot.send_media_group(cid, media=media_group.build())
-    elif content == "Телефон":
-        await message.answer("send phone")
-        # await bot.send_
+    elif content == "Екзотика":
+        await bot.send_sticker(cid, FSInputFile('assets/media/barbie.webp'))
+        await bot.send_venue(
+            cid,
+            36.545,
+            52.123,
+            "Test Title",
+            "test address"
+        )
+        # await bot.send_invoice()
 
 
 async def main() -> None:
