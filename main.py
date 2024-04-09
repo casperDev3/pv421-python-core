@@ -14,6 +14,7 @@ from aiogram.types.inline_keyboard_markup import InlineKeyboardMarkup
 from aiogram.types.inline_keyboard_button import InlineKeyboardButton
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
+from aiogram.utils.media_group import MediaGroupBuilder
 
 # Bot token can be obtained via https://t.me/BotFather
 TOKEN = "7192658163:AAGVzkWMbNrY35qfw8jo0PZZ-ql28xvb5A0"
@@ -42,7 +43,11 @@ def r_main_menu():
             [KeyboardButton(text='Контакти')],
             [KeyboardButton(text='😉Надіслати відгук'),
              KeyboardButton(text='Надіслати заявку'),
-             KeyboardButton(text='Надіслати картинку')]
+             KeyboardButton(text='Надіслати картинку')],
+            [
+                KeyboardButton(text='Надіслати групу фото'),
+                KeyboardButton(text='Телефон')
+            ]
         ],
         resize_keyboard=True
     )
@@ -183,7 +188,19 @@ async def special_msg(message: types.Message, state: FSMContext) -> None:
         await state.set_state(RequestForm.wait_for_name)
     elif content == "Надіслати картинку":
         img = FSInputFile("assets/media/barbie.webp")
-        await bot.send_photo(cid, img)
+        await bot.send_photo(cid, img, caption="It's barbie")
+    elif content == "Надіслати групу фото":
+        media_group = MediaGroupBuilder(
+            caption="It's media group!"
+        )
+        media_group.add(type="photo", media=FSInputFile("assets/media/barbie.webp"))
+        media_group.add(type="photo", media=FSInputFile("assets/media/barbie.webp"))
+        media_group.add(type="photo", media=FSInputFile("assets/media/barbie.webp"))
+
+        await bot.send_media_group(cid, media=media_group.build())
+    elif content == "Телефон":
+        await message.answer("send phone")
+        # await bot.send_
 
 
 async def main() -> None:
