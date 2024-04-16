@@ -50,3 +50,12 @@ def admin_main():
         ],
         resize_keyboard=True
     )
+
+
+def admin_mass_sending():
+    return ReplyKeyboardMarkup(
+        keyboard=[
+            [KeyboardButton(text="Скасувати")]
+        ],
+        resize_keyboard=True
+    )

@@ -77,7 +77,7 @@ async def special_msg(message: types.Message, state: FSMContext) -> None:
                                  reply_markup=reply.main_menu())
     elif content == "Розсилка":
         if auth.is_admin(cid):
-            await message.answer("Введіть текст розсилки:")
+            await message.answer("Введіть текст розсилки:", reply_markup=reply.admin_mass_sending())
             await state.set_state(forms.MassSending.wait_for_content_msg)
 
 

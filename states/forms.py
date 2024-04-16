@@ -31,8 +31,12 @@ class MassSending(StatesGroup):
 
 @dp.message(MassSending.wait_for_content_msg)
 async def get_new_admin_id(msg: types.Message, state: FSMContext):
-    await send.global_mass_sending(msg.text, msg.from_user.id)
-    await state.clear()
+    if msg.text == "Скасувати":
+        await state.clear()
+        await msg.answer("Ви відмінили розсилку!", reply_markup=reply.admin_main())
+    else:
+        await send.global_mass_sending(msg.text, msg.from_user.id)
+        await state.clear()
 
 
 @dp.message(AddNewAdmin.wait_for_admin_id)
