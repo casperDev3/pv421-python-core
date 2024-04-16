@@ -4,6 +4,7 @@ from aiogram.types import Message
 from aiogram.utils.markdown import hbold
 from creds import main
 from keyboards import reply
+from auth import main as auth
 
 dp = main.dp
 
@@ -29,4 +30,7 @@ async def poll(msg: types.Message):
 
 @dp.message(Command("admin"))
 async def welcome_admin(msg: types.Message):
-    await msg.answer("It's work!")
+    if auth.is_admin(msg.from_user.id):
+        await msg.answer("Вітає вам у режимі адміністратора", reply_markup=reply.admin_main())
+    else:
+        await msg.answer("You haven't access!", reply_markup=reply.main_menu())
