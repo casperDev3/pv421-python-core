@@ -25,3 +25,8 @@ async def poll(msg: types.Message):
         is_anonymous=False,
         allows_multiple_answers=True
     )
+
+
+@dp.message(Command("admin"))
+async def welcome_admin(msg: types.Message):
+    await msg.answer("It's work!")

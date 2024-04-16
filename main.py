@@ -2,7 +2,7 @@ import asyncio
 import logging
 import sys
 from creds import main
-from handlers import inline_keyboards, photos, files, reply_keyboards, commands, polls
+from handlers import commands, inline_keyboards, photos, files, reply_keyboards, polls
 
 # init
 dp = main.dp
