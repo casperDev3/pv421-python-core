@@ -71,6 +71,16 @@ async def special_msg(message: types.Message, state: FSMContext) -> None:
     if content == "Додати адміністратора":
         if auth.is_admin(cid):
             await message.answer("Введіть ID адміністратора:")
+            await state.set_state(forms.AddNewAdmin.wait_for_admin_id)
+        else:
+            await message.answer("У вас немає доступу до цієї функції! зверніться до аміністрації!",
+                                 reply_markup=reply.main_menu())
+    elif content == "Розсилка":
+        if auth.is_admin(cid):
+            await message.answer("Введіть текст розсилки:")
+            await state.set_state(forms.MassSending.wait_for_content_msg)
+
+
         else:
             await message.answer("У вас немає доступу до цієї функції! зверніться до аміністрації!",
                                  reply_markup=reply.main_menu())
