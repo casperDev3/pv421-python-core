@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Електронна пошта</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+    }
+    header {
+        background-color: #e06411;
+        color: rgb(12, 212, 243);
+        text-align: center;
+        padding: 10px 0;
+        width: 100%;
+    }
+    nav {
+        background-color: #d3d61a;
+        width: 250px;
+        padding: 20px;
+    }
+    main {
+        flex: 1;
+        padding: 20px;
+    }
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    li {
+        padding: 10px 0;
+        border-bottom: 1px solid #de1aca;
+    }
+    
+    @media only screen and (max-width: 600px) {
+        body {
+            flex-direction: column;
+        }
+        nav {
+            width: 100%;
+        }
+    }
+</style>
+</head>
+<body>
+<header>
+    <img src="./assets/pictures/dragon.jpg" alt="logo" />
+    <h1>DRAGON</h1<!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Електронна пошта</title>
+        <style>       
+
+            body {
+                font-family: Arial, sans-serif;
+                display: flex;
+            }
+            header {
+                background-color: #19ec43;
+                color: rgb(206, 15, 15);
+                text-align: center;
+                padding: 10px 0;
+                width: 100%;
+            }
+            nav {
+                background-color: #15dbe5;
+                width: 250px;
+                padding: 20px;
+            }
+            main {
+                flex: 1;
+                padding: 20px;
+            }
+            ul {
+                list-style-type: none;
+                padding: 0;
+            }
+            li {
+                padding: 10px 0;
+                border-bottom: 1px solid #3ce91e;
+            }
+            
+            @media only screen and (max-width: 600px) {
+                body {
+                    flex-direction: column;
+                }
+                nav {
+                    width: 100%;
+                }
+            }
+        </style>
+        </head>
+        <body>
+        <header>
+            <img src="./assets/pictures/dragon.jpg" alt="logo" />
+            <h1>DRAGON</h1>
+        </header>
+        <nav>
+<body>
+ <!-- !HEADER -->
+ <header class="header container" id="header">
+    <a href="/" class="header__logo">
+      <img src="./pictures/assets/dragon.jpg" alt="logo" />
+    </a>
+    <nav class="main-menu">
+      <ul>
+        <li>
+          <a href="#">Новини</a>
+        </li>
+        <li>
+          <a href="#">Проєкти</a>
+        </li>
+        <li>
+          <a href="#">Команда</a>
+        </li>
+        <li>
+          <a href="#ancor">Про нас</a>
+        </li>
+        <li>
+          <a href="#">Контакти</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="burger" id="burger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav class="burger-menu" id="burger-menu">  
+</body>
+</head>
+<body>
+    <h2>Форма реєстрації</h2>
+    <form>
+        <h3>Реєстраційні дані</h3>
+        <div class="form-group">
+            <label for="login">Логін:</label>
+            <input type="text" id="login" name="login" class="input" required>
+        </div>
+        <div class="form-group">
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" class="input" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" class="input" required>
+        </div>
+
+        <h3>Персональні дані</h3>
+        <div class="form-group">
+            <label for="first-name">Ім'я:</label>
+            <input type="text" id="first-name" name="first-name" class="input">
+        </div>
+        <div class="form-group">
+            <label for="last-name">Прізвище:</label>
+            <input type="text" id="last-name" name="last-name" class="input">
+        </div>
+        <div class="form-group">
+            <label>Стать:</label>
+            <div class="radio-button">
+                <input type="radio" id="male" name="gender" value="male">
+                <label for="male">Чоловік</label>
+            </div>
+            <div class="radio-button">
+                <input type="radio" id="female" name="gender" value="female">
+                <label for="female">Жінка</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="birthday">Дата народження:</label>
+            <input type="date" id="birthday" name="birthday" class="input">
+        </div>
+
+        <h3>Підписка та згода</h3>
+        <div class="form-group">
+            <div class="checkbox">
+                <input type="checkbox" id="subscribe" name="subscribe">
+                <label for="subscribe">Підписатися на розсилку</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="checkbox">
+                <input type="checkbox" id="agree" name="agree" required>
+                <label for="agree">Погоджуюсь з правилами</label>
+            </div>
+        </div>
+
+        <button type="submit" class="button green">Зареєструватися</button>
+    </form>
+</body>
+</html>
+
+            <ul>
+                <li>Вхідні</li>
+                <li>Відправлені</li>
+                <li>Чернетки</li>
+                <li>Кошик</li>
+            </ul>
+        </nav>
+        <main>
+            <ul>
+                <li>Лист 1</li>
+                <li>Лист 2</li>
+                <li>Лист 3</li>
+                <li>Лист 4</li>
+            </ul>
+        </main>
+        </body>
+        </html>
+        >
+</header>
+<nav>
+    <ul>
+        <li>Вхідні</li>
+        <li>Відправлені</li>
+        <li>Чернетки</li>
+        <li>Кошик</li>
+    </ul>
+</nav>
+<main>
+    <ul>
+        <li>Лист 1</li>
+        <li>Лист 2</li>
+        <li>Лист 3</li>
+        <li>Лист 4</li>
+    </ul>
+</main>
+</body>
+</html>
+
