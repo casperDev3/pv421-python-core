@@ -48,7 +48,8 @@ async def special_msg(message: types.Message, state: FSMContext) -> None:
         await state.set_state(forms.RequestForm.wait_for_name)
     elif content == "Надіслати картинку":
         img = FSInputFile("assets/media/barbie.webp")
-        await main.bot.send_photo(cid, img, caption="It's barbie")
+        await main.bot.send_photo(cid, img, caption="It's barbie",
+                                  protect_content=True)
     elif content == "Надіслати групу фото":
         media_group = MediaGroupBuilder(
             caption="It's media group!"
@@ -57,7 +58,8 @@ async def special_msg(message: types.Message, state: FSMContext) -> None:
         media_group.add(type="photo", media=FSInputFile("assets/media/barbie.webp"))
         media_group.add(type="photo", media=FSInputFile("assets/media/barbie.webp"))
 
-        await main.bot.send_media_group(cid, media=media_group.build())
+        await main.bot.send_media_group(cid, media=media_group.build(),
+                                        protect_content=True)
     elif content == "Екзотика":
         await main.bot.send_sticker(cid, FSInputFile('assets/media/barbie.webp'))
         await main.bot.send_venue(

@@ -3,12 +3,15 @@ from aiogram import types
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message, FSInputFile
 from aiogram.utils.markdown import hbold
+from aiogram.utils.media_group import MediaGroupBuilder
+
 from creds import main
 from keyboards import reply
 from auth import main as auth
 import pandas as pd
 import requests
 import qrcode
+from data import products as p
 
 dp = main.dp
 
@@ -30,6 +33,25 @@ async def poll(msg: types.Message):
         is_anonymous=False,
         allows_multiple_answers=True
     )
+
+
+@dp.message(Command("5prds"))
+async def five_products(msg: types.Message):
+    products = p.get_data("products?limit=3")
+    caption_txt = ""
+    count_products = 0
+    for prod in products:
+        count_products += 1
+        caption_txt += f"{count_products}. " + prod["title"] + '\n'
+
+    media_group = MediaGroupBuilder(
+        caption=caption_txt
+    )
+    for prod in products:
+        media_group.add(type="photo", media=prod["image"])
+
+    await main.bot.send_media_group(msg.from_user.id,
+                                    media=media_group.build())
 
 
 @dp.message(Command("admin"))

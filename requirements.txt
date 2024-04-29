@@ -14,3 +14,8 @@ pydantic==2.5.3
 pydantic_core==2.14.6
 typing_extensions==4.10.0
 yarl==1.9.4
+
+requests~=2.31.0
+pdfkit~=1.0.0
+pandas~=2.2.2
+qrcode~=7.4.2
