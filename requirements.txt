@@ -19,3 +19,4 @@ requests~=2.31.0
 pdfkit~=1.0.0
 pandas~=2.2.2
 qrcode~=7.4.2
+Quart~=0.19.5
