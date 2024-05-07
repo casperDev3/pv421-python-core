@@ -1,19 +1,38 @@
 from quart import Quart, request, jsonify
 from creds import main as m
 import asyncio
+import utils
 
 app = Quart(__name__)
 
 
 @app.route('/api/v1/users/admins', methods=['GET'])
 async def get_list_admins():
-    print("/// some script")
-    return jsonify(
-        {
-            "success": True,
-            "data": None
-        }
-    ), 200
+    try:
+        result = await utils.get_list_of_admins()
+        if result['success']:
+            return jsonify(
+                {
+                    "success": True,
+                    "data": result["data"]
+                }
+            ), 200
+        else:
+            return jsonify(
+                {
+                    "success": False,
+                    "data": None,
+                    "error": result["error"]
+                }
+            ), 500
+    except Exception as err:
+        return jsonify(
+            {
+                "success": False,
+                "data": None,
+                "error": err
+            }
+        )
 
 
 @app.route('/', methods=['GET'])
