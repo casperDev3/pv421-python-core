@@ -9,6 +9,7 @@ def main_menu():
             [KeyboardButton(text="👨‍🎨Про проєкт")],
             [
                 KeyboardButton(text="chatGPT"),
+                KeyboardButton(text="DALL-E"),
                 KeyboardButton(text="Реквізити"),
                 KeyboardButton(text="План занять")
             ],

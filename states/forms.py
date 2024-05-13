@@ -8,6 +8,7 @@ from keyboards import reply
 from auth import main as auth
 from utils import mass_sending as send
 from ai import main as ai
+
 dp = main.dp
 
 
@@ -17,6 +18,7 @@ class RegistrationStates(StatesGroup):
 
 class SimplePromptGPT(StatesGroup):
     wait_for_prompt = State()
+    wait_for_image = State()
 
 
 class RequestForm(StatesGroup):
@@ -41,6 +43,18 @@ async def send_prompt(msg: types.Message, state: FSMContext):
         await main.bot.delete_message(msg.from_user.id, wait_msg.message_id)
         await msg.answer(result.choices[0].message.content)
         await state.clear()
+
+
+@dp.message(SimplePromptGPT.wait_for_image)
+async def generate_image_link(msg: types.Message, state: FSMContext):
+    wait_msg = await main.bot.send_message(msg.from_user.id, 'Генерується...')
+    result = ai.generate_img(msg.text)
+
+    if result:
+        await main.bot.delete_message(msg.from_user.id, wait_msg.message_id)
+        await main.bot.send_photo(msg.from_user.id, result)
+        await state.clear()
+
 
 @dp.message(MassSending.wait_for_content_msg)
 async def get_new_admin_id(msg: types.Message, state: FSMContext):

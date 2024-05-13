@@ -54,6 +54,9 @@ async def special_msg(message: types.Message, state: FSMContext) -> None:
     elif content == "chatGPT":
         await message.answer("Впишіть, що ви б хотіли дізнатись в мене: ")
         await state.set_state(forms.SimplePromptGPT.wait_for_prompt)
+    elif content == "DALL-E":
+        await message.answer("Впишіть, що ви б хотіли, об я намалював: ")
+        await state.set_state(forms.SimplePromptGPT.wait_for_image)
 
     elif content == "Надіслати групу фото":
         media_group = MediaGroupBuilder(
