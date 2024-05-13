@@ -7,12 +7,16 @@ from creds import main
 from keyboards import reply
 from auth import main as auth
 from utils import mass_sending as send
-
+from ai import main as ai
 dp = main.dp
 
 
 class RegistrationStates(StatesGroup):
     wait_for_feedback = State()
+
+
+class SimplePromptGPT(StatesGroup):
+    wait_for_prompt = State()
 
 
 class RequestForm(StatesGroup):
@@ -28,6 +32,15 @@ class AddNewAdmin(StatesGroup):
 class MassSending(StatesGroup):
     wait_for_content_msg = State()
 
+
+@dp.message(SimplePromptGPT.wait_for_prompt)
+async def send_prompt(msg: types.Message, state: FSMContext):
+    wait_msg = await main.bot.send_message(msg.from_user.id, 'Генерується...')
+    result = await ai.test_send_prompt(msg.text)
+    if result:
+        await main.bot.delete_message(msg.from_user.id, wait_msg.message_id)
+        await msg.answer(result.choices[0].message.content)
+        await state.clear()
 
 @dp.message(MassSending.wait_for_content_msg)
 async def get_new_admin_id(msg: types.Message, state: FSMContext):

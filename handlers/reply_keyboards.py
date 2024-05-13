@@ -8,6 +8,7 @@ from creds import main
 from states import forms
 from auth import main as auth
 
+
 dp = main.dp
 
 
@@ -50,6 +51,10 @@ async def special_msg(message: types.Message, state: FSMContext) -> None:
         img = FSInputFile("assets/media/barbie.webp")
         await main.bot.send_photo(cid, img, caption="It's barbie",
                                   protect_content=True)
+    elif content == "chatGPT":
+        await message.answer("Впишіть, що ви б хотіли дізнатись в мене: ")
+        await state.set_state(forms.SimplePromptGPT.wait_for_prompt)
+
     elif content == "Надіслати групу фото":
         media_group = MediaGroupBuilder(
             caption="It's media group!"
